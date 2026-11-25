@@ -564,7 +564,7 @@
         
         .gone-text-background svg {
             width: 95%;
-            max-width: 1200px;
+            max-width: 1120px;
             height: auto;
         }
         
@@ -581,7 +581,7 @@
         
         .killswitch-text-background svg {
             width: 95%;
-            max-width: 1200px;
+            max-width: 1120px;
             height: auto;
         }
 
@@ -880,7 +880,7 @@
             align-items: flex-start;
             gap: 60px 70px;
             width: 100%;
-            max-width: 1200px;
+            max-width: 1120px;
         }
 
         .shop-grid .shop-container {
@@ -971,6 +971,92 @@
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
             pointer-events: none;
             transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Black Friday sale */
+        .bf-tab {
+            position: absolute;
+            z-index: 3;
+            top: 4%;
+            left: 2%;
+            padding: 8px 16px;
+            background: #E8547A;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border-radius: 50px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .bf-tab-inline {
+            position: static;
+            box-shadow: none;
+        }
+
+        .price-line,
+        .bf-bundle-price {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 4px 12px;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .price-line {
+            margin: -8px 0 10px;
+        }
+
+        .price-now {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .price-was {
+            font-size: 13px;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.45);
+            text-decoration: line-through;
+        }
+
+        .price-extra {
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: #E8547A;
+        }
+
+        .bf-bundle {
+            flex: 1 1 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px 28px;
+            max-width: 900px;
+            padding: 16px 28px;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 50px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .bf-bundle:hover {
+            border-color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15);
+        }
+
+        .bf-bundle-name {
+            font-size: 13px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
         }
 
         /* Tour tee: front by default, back on hover */
@@ -1100,6 +1186,21 @@
                 max-width: 320px;
             }
 
+            .bf-bundle {
+                flex-direction: column;
+                border-radius: 24px;
+                gap: 12px;
+                padding: 22px 20px;
+                max-width: 340px;
+                text-align: center;
+            }
+
+            .bf-tab {
+                font-size: 10px;
+                padding: 6px 12px;
+                letter-spacing: 2px;
+            }
+
             .album-title {
                 font-size: 14px;
             }
@@ -1156,6 +1257,53 @@
     <!-- Shop Section -->
     <section id="shop" class="shop-section">
       <div class="shop-grid">
+        <!-- TODO: replace # with the bundle's product link -->
+        <a href="#" class="bf-bundle bundle-product-link">
+            <span class="bf-tab bf-tab-inline">Black Friday Bundle</span>
+            <span class="bf-bundle-name">Tour Tee + Soulmate Tank</span>
+            <span class="bf-bundle-price">
+                <span class="price-now">$50</span>
+                <span class="price-was">$70</span>
+                <span class="price-extra">+ Signed Poster</span>
+            </span>
+        </a>
+
+        <div class="shop-container">
+            <h1 class="album-title">Subject To Change Tour Tee</h1>
+            <div class="price-line">
+                <span class="price-now">$30</span>
+                <span class="price-was">$40</span>
+                <span class="price-extra">+ Signed Poster</span>
+            </div>
+            <div class="tee-display">
+                <span class="bf-tab">Black Friday</span>
+                <!-- TODO: replace # with the tee's product link -->
+                <a href="#" class="tee-link tee-product-link" aria-label="Subject To Change Tour Tee">
+                    <img src="TourTee_Front.png" alt="Subject To Change Tour Tee, front" class="tee-img tee-front">
+                    <img src="TourTee_Back.png" alt="Subject To Change Tour Tee, back with tour dates" class="tee-img tee-back">
+                </a>
+            </div>
+            <a href="#" class="listen-btn tee-product-link">BUY NOW</a>
+        </div>
+
+        <div class="shop-container">
+            <h1 class="album-title">Soulmate Tank</h1>
+            <div class="price-line">
+                <span class="price-now">$25</span>
+                <span class="price-was">$30</span>
+                <span class="price-extra">+ Signed Poster</span>
+            </div>
+            <div class="tee-display">
+                <span class="bf-tab">Black Friday</span>
+                <!-- TODO: replace # with the tank's product link -->
+                <a href="#" class="tee-link tank-product-link" aria-label="Soulmate Tank">
+                    <img src="TankTop_Front.png" alt="India Shawn's Soulmate tank top, front" class="tee-img tee-front">
+                    <img src="TankTop_Back.png" alt="India Shawn's Soulmate tank top, back" class="tee-img tee-back">
+                </a>
+            </div>
+            <a href="#" class="listen-btn tank-product-link">BUY NOW</a>
+        </div>
+
         <div class="shop-container">
             <h1 class="album-title">Before We Go Deeper Vinyl</h1>
             <div class="vinyl-display">
@@ -1168,30 +1316,6 @@
                 </a>
             </div>
             <a href="https://shop.indiashawn.com" class="listen-btn">BUY NOW</a>
-        </div>
-
-        <div class="shop-container">
-            <h1 class="album-title">Subject To Change Tour Tee</h1>
-            <div class="tee-display">
-                <!-- TODO: replace # with the tee's product link -->
-                <a href="#" class="tee-link tee-product-link" aria-label="Subject To Change Tour Tee">
-                    <img src="TourTee_Front.png" alt="Subject To Change Tour Tee, front" class="tee-img tee-front">
-                    <img src="TourTee_Back.png" alt="Subject To Change Tour Tee, back with tour dates" class="tee-img tee-back">
-                </a>
-            </div>
-            <a href="#" class="listen-btn tee-product-link">BUY NOW</a>
-        </div>
-
-        <div class="shop-container">
-            <h1 class="album-title">Soulmate Tank</h1>
-            <div class="tee-display">
-                <!-- TODO: replace # with the tank's product link -->
-                <a href="#" class="tee-link tank-product-link" aria-label="Soulmate Tank">
-                    <img src="TankTop_Front.png" alt="India Shawn's Soulmate tank top, front" class="tee-img tee-front">
-                    <img src="TankTop_Back.png" alt="India Shawn's Soulmate tank top, back" class="tee-img tee-back">
-                </a>
-            </div>
-            <a href="#" class="listen-btn tank-product-link">BUY NOW</a>
         </div>
       </div>
     </section>
