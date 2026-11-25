@@ -880,7 +880,7 @@
             align-items: flex-start;
             gap: 60px 70px;
             width: 100%;
-            max-width: 1120px;
+            max-width: 860px;
         }
 
         .shop-grid .shop-container {
@@ -1096,6 +1096,9 @@
             transform: scale(1.03);
         }
 
+        .bundle-img { opacity: 1 !important; animation: none !important; }
+        .tee-link:hover .bundle-img { transform: scale(1.04); }
+
         .tee-display:hover ~ .listen-btn {
             border-color: #fff;
             transform: translateY(-2px);
@@ -1257,17 +1260,6 @@
     <!-- Shop Section -->
     <section id="shop" class="shop-section">
       <div class="shop-grid">
-        <!-- TODO: replace # with the bundle's product link -->
-        <a href="#" class="bf-bundle bundle-product-link">
-            <span class="bf-tab bf-tab-inline">Black Friday Bundle</span>
-            <span class="bf-bundle-name">Tour Tee + Soulmate Tank</span>
-            <span class="bf-bundle-price">
-                <span class="price-now">$50</span>
-                <span class="price-was">$70</span>
-                <span class="price-extra">+ Signed Poster</span>
-            </span>
-        </a>
-
         <div class="shop-container">
             <h1 class="album-title">Subject To Change Tour Tee</h1>
             <div class="price-line">
@@ -1302,6 +1294,23 @@
                 </a>
             </div>
             <a href="#" class="listen-btn tank-product-link">BUY NOW</a>
+        </div>
+
+        <div class="shop-container">
+            <h1 class="album-title">Tour Tee + Tank Bundle</h1>
+            <div class="price-line">
+                <span class="price-now">$50</span>
+                <span class="price-was">$70</span>
+                <span class="price-extra">+ Signed Poster</span>
+            </div>
+            <div class="tee-display">
+                <span class="bf-tab">Black Friday</span>
+                <!-- TODO: replace # with the bundle's product link -->
+                <a href="#" class="tee-link bundle-product-link" aria-label="Tour Tee + Tank Bundle">
+                    <img src="TourBundle.png" alt="Subject To Change Tour Tee and Soulmate Tank bundle" class="tee-img bundle-img">
+                </a>
+            </div>
+            <a href="#" class="listen-btn bundle-product-link">BUY NOW</a>
         </div>
 
         <div class="shop-container">
