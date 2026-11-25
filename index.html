@@ -773,13 +773,57 @@
         .bf-extra { font-size: 10px; letter-spacing: 2px; color: #E8547A; }
 
         .bf-popup-bundle {
-            padding: 14px 18px;
-            margin-bottom: 26px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: nowrap;
+            gap: 18px;
+            padding: 12px 26px 12px 14px;
+            margin-bottom: 16px;
             border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 50px;
+            border-radius: 24px;
+            color: #fff;
+            text-decoration: none;
+            opacity: 0;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .bf-popup-bundle:hover {
+            border-color: #fff;
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.12);
+        }
+
+        .bf-bundle-img {
+            width: 150px;
+            aspect-ratio: 2 / 1;
+            object-fit: cover;
+            flex-shrink: 0;
+            animation: bfFloat 4s ease-in-out -1s infinite;
+        }
+
+        .bf-bundle-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
+            text-align: left;
+        }
+
+        .bf-bundle-label {
             font-size: 11px;
             letter-spacing: 2px;
+        }
+
+        .bf-poster-note {
+            margin-bottom: 24px;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #E8547A;
             opacity: 0;
+        }
+
+        .bf-popup.active .bf-poster-note {
+            animation: bfRise 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.7s forwards;
         }
 
         .bf-popup.active .bf-popup-bundle {
@@ -864,12 +908,15 @@
             .bf-popup-items { gap: 12px; }
             .bf-popup-name { font-size: 10px; letter-spacing: 1px; }
             .bf-now { font-size: 16px; }
-            .bf-popup-bundle { border-radius: 18px; }
+            .bf-popup-bundle { gap: 12px; padding: 10px 16px 10px 8px; border-radius: 18px; }
+            .bf-bundle-img { width: 120px; }
+            .bf-bundle-label { font-size: 10px; letter-spacing: 1px; }
             .bf-popup-btn { padding: 15px 34px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
             .bf-popup-img,
+            .bf-bundle-img,
             .bf-popup-tag { animation: none; }
         }
     </style>
@@ -1012,10 +1059,14 @@
                     <div class="bf-popup-price"><span class="bf-now">$25</span><span class="bf-was">$30</span></div>
                 </a>
             </div>
-            <div class="bf-popup-bundle">
-                <span>Both for</span><span class="bf-now">$50</span><span class="bf-was">$70</span>
-                <span class="bf-extra">Every order + Signed Poster</span>
-            </div>
+            <a href="shop.html" class="bf-popup-bundle">
+                <img src="TourBundle.png" alt="Tour Tee + Soulmate Tank bundle" class="bf-bundle-img">
+                <span class="bf-bundle-info">
+                    <span class="bf-bundle-label">Tour Tee + Tank Bundle</span>
+                    <span class="bf-popup-price"><span class="bf-now">$50</span><span class="bf-was">$70</span></span>
+                </span>
+            </a>
+            <div class="bf-poster-note">Every order includes a Signed Poster</div>
             <div class="bf-popup-actions">
                 <a href="shop.html" class="bf-popup-btn">Shop the Sale</a>
                 <a href="https://shop.indiashawn.com" class="bf-popup-link" target="_blank" rel="noopener">Visit shop.indiashawn.com</a>
