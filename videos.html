@@ -666,6 +666,89 @@ nav .nav-left,
             border: none;
         }
 
+        /* Stylized video covers (click to load YouTube) */
+        .video-cover {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0) 55%),
+                linear-gradient(180deg, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0.32) 100%);
+            transition: background 0.4s ease;
+        }
+
+        .killswitch .video-cover { background-color: #C92E3A; }
+        .cottoncandy .video-cover { background-color: #F27DB8; }
+        .gone .video-cover { background-color: #2F6DAE; }
+
+        .video-play {
+            position: relative;
+            width: 96px;
+            height: 96px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .video-play::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: videoPulse 2.4s ease-out infinite;
+            pointer-events: none;
+        }
+
+        .video-play svg {
+            width: 36px;
+            height: 36px;
+            fill: currentColor;
+            margin-left: 4px;
+            transition: fill 0.3s ease;
+        }
+
+        .video-cover:hover .video-play,
+        .video-cover:focus-visible .video-play {
+            background: #fff;
+            transform: scale(1.08);
+        }
+
+        .killswitch .video-cover:hover .video-play,
+        .killswitch .video-cover:focus-visible .video-play { color: #E63946; }
+        .cottoncandy .video-cover:hover .video-play,
+        .cottoncandy .video-cover:focus-visible .video-play { color: #FF8FC7; }
+        .gone .video-cover:hover .video-play,
+        .gone .video-cover:focus-visible .video-play { color: #357ABD; }
+
+        .video-cover:focus { outline: none; }
+        .video-cover:focus-visible { outline: 2px solid #fff; outline-offset: -6px; }
+
+        @keyframes videoPulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.6); opacity: 0; }
+        }
+
+        @media (max-width: 767px) {
+            .video-play { width: 68px; height: 68px; }
+            .video-play svg { width: 26px; height: 26px; margin-left: 3px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .video-play::after { animation: none; display: none; }
+        }
+
         .video-label {
             position: absolute;
             top: -40px;
@@ -891,12 +974,11 @@ nav .nav-left,
                 </div>
                 <div class="video-label">GONE (DIRECTOR'S CUT)</div>
                 <div class="video-container">
-                  <iframe
-                    src="https://www.youtube.com/embed/o9RWKpvSAJI?rel=0&modestbranding=1"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                  ></iframe>
+                  <button class="video-cover" type="button" data-video-id="o9RWKpvSAJI" aria-label="Play Gone (Director's Cut)">
+                    <span class="video-play" aria-hidden="true">
+                      <svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg>
+                    </span>
+                  </button>
                 </div>
             </section>
 
@@ -923,12 +1005,11 @@ nav .nav-left,
                 </div>
                 <div class="video-label">COTTON CANDY BLVD (FT. LUCKY DAYE)</div>
                 <div class="video-container">
-                  <iframe
-                    src="https://www.youtube.com/embed/q0Bdj5ujsiI?rel=0&modestbranding=1"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                  ></iframe>
+                  <button class="video-cover" type="button" data-video-id="q0Bdj5ujsiI" aria-label="Play Cotton Candy Blvd (ft. Lucky Daye)">
+                    <span class="video-play" aria-hidden="true">
+                      <svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg>
+                    </span>
+                  </button>
                 </div>
             </section>
 
@@ -940,12 +1021,11 @@ nav .nav-left,
                 </div>
                 <div class="video-label">KILL SWITCH (WITH LUKE JAMES)</div>
                 <div class="video-container">
-                  <iframe
-                    src="https://www.youtube.com/embed/HYDHwK4vDcs?rel=0&modestbranding=1"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                  ></iframe>
+                  <button class="video-cover" type="button" data-video-id="HYDHwK4vDcs" aria-label="Play Kill Switch (with Luke James)">
+                    <span class="video-play" aria-hidden="true">
+                      <svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg>
+                    </span>
+                  </button>
                 </div>
             </section>
         </section>
@@ -1147,7 +1227,20 @@ nav .nav-left,
     
         
     
-    </script>>>
+        // Load the YouTube player only when a video cover is clicked
+        document.querySelectorAll('.video-cover').forEach(function (cover) {
+            cover.addEventListener('click', function () {
+                var iframe = document.createElement('iframe');
+                iframe.src = 'https://www.youtube.com/embed/' + cover.dataset.videoId +
+                    '?rel=0&modestbranding=1&autoplay=1&playsinline=1';
+                iframe.title = cover.getAttribute('aria-label').replace(/^Play /, '');
+                iframe.setAttribute('frameborder', '0');
+                iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+                iframe.allowFullscreen = true;
+                cover.replaceWith(iframe);
+            });
+        });
+    </script>
 
 </body>
 </html>
