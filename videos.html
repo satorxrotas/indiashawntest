@@ -678,15 +678,30 @@ nav .nav-left,
             display: flex;
             align-items: center;
             justify-content: center;
-            background:
-                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0) 55%),
-                linear-gradient(180deg, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0.32) 100%);
-            transition: background 0.4s ease;
+            overflow: hidden;
+            background: #000;
         }
 
-        .killswitch .video-cover { background-color: #C92E3A; }
-        .cottoncandy .video-cover { background-color: #F27DB8; }
-        .gone .video-cover { background-color: #2F6DAE; }
+        .video-thumb {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .video-cover::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.25);
+            transition: background 0.4s ease;
+            z-index: 1;
+        }
+
+        .video-cover:hover::before { background: rgba(0, 0, 0, 0.1); }
+        .video-cover:hover .video-thumb { transform: scale(1.03); }
 
         .video-play {
             position: relative;
@@ -698,6 +713,7 @@ nav .nav-left,
             align-items: center;
             justify-content: center;
             color: #fff;
+            z-index: 2;
             transition: all 0.3s ease;
         }
 
@@ -975,6 +991,7 @@ nav .nav-left,
                 <div class="video-label">GONE (DIRECTOR'S CUT)</div>
                 <div class="video-container">
                   <button class="video-cover" type="button" data-video-id="o9RWKpvSAJI" aria-label="Play Gone (Director's Cut)">
+                    <img class="video-thumb" src="https://i.ytimg.com/vi/o9RWKpvSAJI/maxresdefault.jpg" alt="" loading="lazy">
                     <span class="video-play" aria-hidden="true">
                       <svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg>
                     </span>
@@ -1006,6 +1023,7 @@ nav .nav-left,
                 <div class="video-label">COTTON CANDY BLVD (FT. LUCKY DAYE)</div>
                 <div class="video-container">
                   <button class="video-cover" type="button" data-video-id="q0Bdj5ujsiI" aria-label="Play Cotton Candy Blvd (ft. Lucky Daye)">
+                    <img class="video-thumb" src="https://i.ytimg.com/vi/q0Bdj5ujsiI/maxresdefault.jpg" alt="" loading="lazy">
                     <span class="video-play" aria-hidden="true">
                       <svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg>
                     </span>
@@ -1022,6 +1040,7 @@ nav .nav-left,
                 <div class="video-label">KILL SWITCH (WITH LUKE JAMES)</div>
                 <div class="video-container">
                   <button class="video-cover" type="button" data-video-id="HYDHwK4vDcs" aria-label="Play Kill Switch (with Luke James)">
+                    <img class="video-thumb" src="https://i.ytimg.com/vi/HYDHwK4vDcs/maxresdefault.jpg" alt="" loading="lazy">
                     <span class="video-play" aria-hidden="true">
                       <svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg>
                     </span>
@@ -1229,6 +1248,19 @@ nav .nav-left,
     
         // Load the YouTube player only when a video cover is clicked
         document.querySelectorAll('.video-cover').forEach(function (cover) {
+            var thumb = cover.querySelector('.video-thumb');
+            if (thumb) {
+                // Fall back to the standard thumbnail if no HD one exists
+                var useFallback = function () {
+                    if (thumb.src.indexOf('hqdefault') === -1) {
+                        thumb.src = 'https://i.ytimg.com/vi/' + cover.dataset.videoId + '/hqdefault.jpg';
+                    }
+                };
+                thumb.addEventListener('error', useFallback);
+                thumb.addEventListener('load', function () {
+                    if (thumb.naturalWidth <= 120) useFallback();
+                });
+            }
             cover.addEventListener('click', function () {
                 var iframe = document.createElement('iframe');
                 iframe.src = 'https://www.youtube.com/embed/' + cover.dataset.videoId +
